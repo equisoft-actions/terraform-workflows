@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       PAT:
-        description: Personal access token for cloning and commiting
+        description: Personal access token for cloning and committing
         required: true
 
 jobs:
