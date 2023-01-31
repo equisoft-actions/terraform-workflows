@@ -49,7 +49,7 @@ jobs:
 
       - name: Annotation the PR
         if: github.event_name == 'pull_request'
-        uses: equisoft-devops/sarif-to-comment-action@master
+        uses: equisoft-devops/sarif-to-comment-action@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
