@@ -11,22 +11,27 @@ jobs:
   renovate:
     runs-on: ubuntu-latest
     if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
+
     steps:
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.pull_request.head.sha }}
         token: ${{ secrets.PAT }}
+
     - name: Get Terraform version
       run: |
         echo "TERRAFORM_VERSION=$(grep -oP '(?<=terraform ).*' .tool-versions)" >> $GITHUB_ENV
+
     - name: Install Terraform
       uses: little-core-labs/install-terraform@v2.0.0
       with:
           version: "${{ env.TERRAFORM_VERSION }}"
+
     - name: Update atlantis version
       run: |
         sed -i 's/terraform_version: v.*/terraform_version: v'${{ env.TERRAFORM_VERSION }}'/g' atlantis.yaml
         git config --global url."https://github".insteadOf ssh://git@github
+
     - name: Run Terraform init update
       run: |
         dir=$(pwd)
@@ -40,6 +45,7 @@ jobs:
               -platform=darwin_arm64 \
               -platform=linux_arm64
         done
+        
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "renovate: Update Terraform lock file"
