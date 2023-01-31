@@ -3,7 +3,7 @@ name: Checkov
 on:
   workflow_call:
     inputs:
-      skip_check_File:
+      skip_check_file:
         required: false
         default: ".checkov"
         type: string
@@ -27,12 +27,14 @@ jobs:
       - name: Retrieve skip check
         id: skip_check
         uses: mikefarah/yq@v4.30.8
+        env:
+          INPUT_SKIP_CHECK_FILE: ${{ inputs.skip_check_file }}
         with:
           cmd: >
-            if [[ ! -f "${{ inputs.skip_check }}" ]]; then
-              echo "skip_check: []" > ${{ inputs.skip_check }}
+            if [[ ! -f "${INPUT_SKIP_CHECK_FILE}" ]]; then
+              echo "skip_check: []" > ${INPUT_SKIP_CHECK_FILE}
             fi
-            yq '.skip_check | join (",")' ${{ inputs.skip_check }}
+            yq '.skip_check | join (",")' ${INPUT_SKIP_CHECK_FILE}
 
       - name: Run Checkov action
         id: checkov
