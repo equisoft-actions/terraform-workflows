@@ -2,9 +2,10 @@ name: tfsec
 
 on:
   workflow_call:
-    config_file:
-      required: false
-      type: string
+    inputs:
+      config_file:
+        required: false
+        type: string
 
 permissions:
   actions: read
