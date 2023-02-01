@@ -51,7 +51,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: equisoft-actions/sarif-annotator@v1
         with:
-          sarif-file: results.sarif
+          sarif-path: results.sarif
           title: "Security scanning results"
 
       - name: Upload SARIF file
