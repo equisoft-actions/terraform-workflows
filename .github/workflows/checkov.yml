@@ -49,15 +49,10 @@ jobs:
 
       - name: Annotation the PR
         if: github.event_name == 'pull_request'
-        uses: equisoft-devops/sarif-to-comment-action@main
+        uses: equisoft-actions/sarif-annotator@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          branch: ${{ github.head_ref }}
-          pr-number: ${{ github.event.number }}
           sarif-file: results.sarif
           title: "Security scanning results"
-          odc-sarif: false
 
       - name: Upload SARIF file
         if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
