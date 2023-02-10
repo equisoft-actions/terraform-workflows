@@ -51,8 +51,9 @@ jobs:
         uses: equisoft-devops/checkov-sarif-updater@main
         with:
           sarif-file: results.sarif
+          output-sarif-file: results-final.sarif
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: results.sarif
+          sarif_file: results-final.sarif
