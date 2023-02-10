@@ -47,6 +47,11 @@ jobs:
           soft_fail: true
           skip_check: ${{ steps.skip_check.outputs.result }}
 
+      - name: Update checkov with severity
+        uses: equisoft-devops/checkov-sarif-updater@main
+        with:
+          sarif-file: results.sarif
+
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
         with:
