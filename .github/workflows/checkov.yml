@@ -3,9 +3,9 @@ name: Checkov
 on:
   workflow_call:
     inputs:
-      skip_check_file:
+      config_file:
         required: false
-        default: ".checkov"
+        default: "checkov.yaml"
         type: string
 
 permissions:
@@ -28,13 +28,13 @@ jobs:
         id: skip_check
         uses: mikefarah/yq@v4.30.8
         env:
-          INPUT_SKIP_CHECK_FILE: ${{ inputs.skip_check_file }}
+          INPUT_SKIP_CHECK_FILE: ${{ inputs.config_file }}
         with:
           cmd: |
             if [[ ! -f "${INPUT_SKIP_CHECK_FILE}" ]]; then
               echo "skip_check: []" > ${INPUT_SKIP_CHECK_FILE}
             fi
-            yq '.skip_check | join (",")' ${INPUT_SKIP_CHECK_FILE}
+            yq '.skip_check // [] | join (",")' ${INPUT_SKIP_CHECK_FILE}
 
       - name: Run Checkov action
         id: checkov
@@ -52,6 +52,7 @@ jobs:
         with:
           sarif-file: results.sarif
           output-sarif-file: results-final.sarif
+          config-file: ${{ inputs.config_file }}
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v2
