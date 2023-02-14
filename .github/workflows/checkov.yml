@@ -50,7 +50,6 @@ jobs:
       - name: Update checkov with severity
         uses: equisoft-devops/checkov-sarif-updater@main
         with:
-          quiet: true
           sarif-file: results.sarif
           output-sarif-file: results-final.sarif
           config-file: ${{ inputs.config_file }}
