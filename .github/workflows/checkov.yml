@@ -42,7 +42,6 @@ jobs:
         with:
           directory: ./
           output_format: sarif
-          output_file_path: results.sarif
           quiet: true
           soft_fail: true
           skip_check: ${{ steps.skip_check.outputs.result }}
@@ -50,6 +49,7 @@ jobs:
       - name: Update checkov with severity
         uses: equisoft-devops/checkov-sarif-updater@main
         with:
+          quiet: true
           sarif-file: results.sarif
           output-sarif-file: results-final.sarif
           config-file: ${{ inputs.config_file }}
