@@ -58,3 +58,5 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: results-final.sarif
+          ref: ${{ github.ref }}
+          sha: ${{ github.sha }}
