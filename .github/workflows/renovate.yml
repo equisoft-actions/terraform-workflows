@@ -45,7 +45,7 @@ jobs:
               -platform=darwin_arm64 \
               -platform=linux_arm64 &
         done
-        wait
+        wait < <(jobs -p)
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
