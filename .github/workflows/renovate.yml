@@ -58,3 +58,8 @@ jobs:
         commit_message: "renovate: Update Terraform lock file"
         file_pattern: "*"
         disable_globbing: true
+
+    - if: ${{ github.event.pull_request.draft == true }}
+      run: gh pr ready ${{ github.event.pull_request.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
