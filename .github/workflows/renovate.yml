@@ -33,6 +33,7 @@ jobs:
         git config --global url."https://github".insteadOf ssh://git@github
 
     - name: Run Terraform init update
+      continue-on-error: true
       run: |
         fix_terraform() {
           local state_path=$1
