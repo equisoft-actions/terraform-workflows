@@ -45,14 +45,12 @@ jobs:
             -platform=linux_amd64 \
             -platform=darwin_arm64 \
             -platform=linux_arm64
+          rm -rf .terraform # cleanup to save disk space
         }
-        unset to_wait
         dir=$(pwd)
         for line in $(grep -oP '(?<=dir: ).*' atlantis.yaml); do
-            fix_terraform "${dir}/${line}" &
-            to_wait+=( $! )
+            fix_terraform "${dir}/${line}"
         done
-        wait "${to_wait[@]}"
 
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
