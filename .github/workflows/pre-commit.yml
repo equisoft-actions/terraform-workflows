@@ -26,6 +26,7 @@ jobs:
       run: |
         arch="$(arch | sed 's/aarch/arm/' | sed 's/i386/amd64/')"
         download_url="https://github.com/AlexNabokikh/tfsort/releases/download/v${TFSORT_VERSION}/tfsort_${TFSORT_VERSION}_linux_${arch}.tar.gz"
+        echo "Downloading ${download_url}"
         curl -s -L ${download_url} | tar xvz - -C ~/.local/bin
         chmod +x ~/.local/bin
       env:
