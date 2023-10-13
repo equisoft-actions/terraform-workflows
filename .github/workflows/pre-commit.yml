@@ -36,8 +36,8 @@ jobs:
         arch=$(get_machine_arch)
         download_url="https://github.com/AlexNabokikh/tfsort/releases/download/v${TFSORT_VERSION}/tfsort_${TFSORT_VERSION}_linux_${arch}.tar.gz"
         echo "Downloading ${download_url}"
-        curl -s -L ${download_url} | tar xvz -C ~/.local/bin tfsort
-        chmod +x ~/.local/bin
+        curl -s -L ${download_url} | tar xvz -C /usr/local/bin tfsort
+        chmod +x /usr/local/bin
       env:
         TFSORT_VERSION: 0.2.3
 
