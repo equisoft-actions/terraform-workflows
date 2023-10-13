@@ -24,7 +24,16 @@ jobs:
 
     - name: Install tfsort
       run: |
-        arch="$(arch | sed 's/aarch/arm/' | sed 's/i386/amd64/')"
+        get_machine_arch () {
+          machine_arch=""
+          case $(uname -m) in
+              x86_64)   machine_arch="amd64" ;;
+              arm64)    machine_arch="arm64" ;;
+              aarch64)  dpkg --print-architecture | grep -q "arm64" && machine_arch="arm64" || machine_arch="arm" ;;
+          esac
+          echo $machine_arch
+        }
+        arch=$(get_machine_arch)
         download_url="https://github.com/AlexNabokikh/tfsort/releases/download/v${TFSORT_VERSION}/tfsort_${TFSORT_VERSION}_linux_${arch}.tar.gz"
         echo "Downloading ${download_url}"
         curl -s -L ${download_url} | tar xvz - -C ~/.local/bin
