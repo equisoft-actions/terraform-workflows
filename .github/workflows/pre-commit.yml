@@ -6,21 +6,30 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
     - uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: '3.11'
 
     - name: Install tflint
       run: curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
       env:
-        TFLINT_VERSION: v0.44.1
+        TFLINT_VERSION: v0.48.0
 
     - name: Use compact mode for tflint
       run: sed -i 's/"default"/"compact"/g' .tflint.hcl
+
+    - name: Install tfsort
+      run: |
+        arch="$(arch | sed 's/aarch/arm/' | sed 's/i386/amd64/')"
+        download_url="https://github.com/AlexNabokikh/tfsort/releases/download/v${TFSORT_VERSION}/tfsort_${TFSORT_VERSION}_linux_${arch}.tar.gz"
+        curl -s -L ${download_url} | tar xvz - -C ~/.local/bin
+        chmod +x ~/.local/bin
+      env:
+        TFSORT_VERSION: 0.2.3
 
     - uses: pre-commit/action@v3.0.0
       env:
