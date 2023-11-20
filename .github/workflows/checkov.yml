@@ -28,7 +28,7 @@ jobs:
 
       - name: Retrieve skip check
         id: skip_check
-        uses: mikefarah/yq@v4.35.2
+        uses: mikefarah/yq@v4.40.2
         env:
           INPUT_SKIP_CHECK_FILE: ${{ inputs.config_file }}
         with:
