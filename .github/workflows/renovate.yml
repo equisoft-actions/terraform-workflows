@@ -46,13 +46,13 @@ jobs:
             fix_terraform "${dir}/${line}"
         done
 
-    - if: github.event.pull_request.draft
-      run: gh pr ready ${{ github.event.pull_request.number }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.PAT }}
-
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "renovate: Update Terraform lock file"
         file_pattern: "*"
         disable_globbing: true
+
+    - if: github.event.pull_request.draft
+      run: gh pr ready ${{ github.event.pull_request.number }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
