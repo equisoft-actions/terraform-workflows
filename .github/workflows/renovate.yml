@@ -30,6 +30,7 @@ jobs:
       run: |
         sed -i 's/terraform_version: v.*/terraform_version: v'${{ env.TERRAFORM_VERSION }}'/g' atlantis.yaml
         git config --global url."https://github".insteadOf ssh://git@github
+        git config --global url."https://github".insteadOf git::ssh://git@github
 
     - name: Run Terraform init update
       continue-on-error: true
@@ -37,10 +38,6 @@ jobs:
         fix_terraform() {
           local state_path=$1
           cd "$state_path"
-
-          # Clone is available on https only
-          find . -name "*.tf" -exec sed -i 's|source = "git@github.com:${{ github.repository }}/"|source = "git::https://github.com/${{ github.repository }}.git/"|g' {} \;
-
           terraform init -upgrade -backend=false -lock=false -input=false
           rm -rf .terraform # cleanup to save disk space
         }
