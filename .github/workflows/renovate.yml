@@ -10,7 +10,6 @@ on:
 jobs:
   renovate:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.user.login == 'renovate[bot]' }}
 
     steps:
     - uses: actions/checkout@v4
@@ -31,6 +30,7 @@ jobs:
       run: |
         sed -i 's/terraform_version: v.*/terraform_version: v'${{ env.TERRAFORM_VERSION }}'/g' atlantis.yaml
         git config --global url."https://github".insteadOf ssh://git@github
+        git config --global url."https://github".insteadOf git::ssh://git@github
 
     - name: Run Terraform init update
       continue-on-error: true
@@ -39,12 +39,6 @@ jobs:
           local state_path=$1
           cd "$state_path"
           terraform init -upgrade -backend=false -lock=false -input=false
-          terraform providers lock \
-            -platform=windows_amd64 \
-            -platform=darwin_amd64 \
-            -platform=linux_amd64 \
-            -platform=darwin_arm64 \
-            -platform=linux_arm64
           rm -rf .terraform # cleanup to save disk space
         }
         dir=$(pwd)
