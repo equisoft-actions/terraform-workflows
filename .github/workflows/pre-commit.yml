@@ -41,7 +41,7 @@ jobs:
       env:
         TFSORT_VERSION: 0.2.3
 
-    - uses: pre-commit/action@v3.0.0
+    - uses: pre-commit/action@v3.0.1
       env:
         SKIP: no-commit-to-branch
         GITHUB_TOKEN: ${{ github.token }}
