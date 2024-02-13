@@ -40,7 +40,7 @@ jobs:
 
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@v12.2580.0
+        uses: bridgecrewio/checkov-action@v12.2672.0
         with:
           directory: ./
           output_format: sarif
@@ -48,7 +48,7 @@ jobs:
           skip_check: ${{ steps.skip_check.outputs.result }}
 
       - name: Update checkov with severity
-        uses: equisoft-devops/checkov-sarif-updater@main
+        uses: equisoft-devops/checkov-sarif-updater@v1
         with:
           sarif-file: results.sarif
           output-sarif-file: results-final.sarif
