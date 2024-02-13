@@ -22,9 +22,9 @@ jobs:
         echo "TERRAFORM_VERSION=$(grep -oP '(?<=terraform ).*' .tool-versions)" >> $GITHUB_ENV
 
     - name: Install Terraform
-      uses: little-core-labs/install-terraform@v2.0.0
+      uses: hashicorp/setup-terraform@v3
       with:
-          version: "${{ env.TERRAFORM_VERSION }}"
+        terraform_version: "${{ env.TERRAFORM_VERSION }}"
 
     - name: Update atlantis version
       run: |
