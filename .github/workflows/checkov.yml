@@ -28,7 +28,7 @@ jobs:
 
       - name: Retrieve skip check
         id: skip_check
-        uses: mikefarah/yq@v4.43.1
+        uses: mikefarah/yq@v4.44.1
         env:
           INPUT_SKIP_CHECK_FILE: ${{ inputs.config_file }}
         with:
@@ -40,7 +40,7 @@ jobs:
 
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@v12.2735.0
+        uses: bridgecrewio/checkov-action@v12.2744.0
         with:
           directory: ./
           output_format: sarif
