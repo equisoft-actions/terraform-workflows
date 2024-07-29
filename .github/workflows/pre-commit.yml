@@ -40,6 +40,11 @@ jobs:
         chmod +x /usr/local/bin/tfsort
       env:
         TFSORT_VERSION: 0.2.3
+    
+    - name: Install OpenTofu
+      uses: opentofu/setup-opentofu@v1
+      with:
+        tofu_version: 1.7.3
 
     - uses: pre-commit/action@v3.0.1
       env:
