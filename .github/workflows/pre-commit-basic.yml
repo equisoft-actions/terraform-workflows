@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       tofu_version:
-        required: true
+        required: false
         type: string
         default: '1.7.3'
 
