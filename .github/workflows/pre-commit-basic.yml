@@ -2,6 +2,11 @@ name: pre-commit-basic
 
 on:
   workflow_call:
+    inputs:
+      tofu_version:
+        required: true
+        type: string
+        default: '1.7.3'
 
 jobs:
   pre-commit:
@@ -11,4 +16,10 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+    
+    - name: Install OpenTofu
+      uses: opentofu/setup-opentofu@v1
+      with:
+        tofu_version: ${{ github.event.inputs.tofu_version }}
+        
     - uses: pre-commit/action@v3.0.1
