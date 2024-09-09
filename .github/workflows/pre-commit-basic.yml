@@ -23,3 +23,5 @@ jobs:
         tofu_version: ${{ github.event.inputs.tofu_version }}
         
     - uses: pre-commit/action@v3.0.1
+      env:
+        SKIP: no-commit-to-branch
